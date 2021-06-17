@@ -257,6 +257,17 @@ public final class RedisCommand {
     public static final String REFCOUNT                      = "REFCOUNT";
     public static final String EXECUTE                       = "EXECUTE";
 
+    //TODO  添加 tair 相关命令
+    public static final String CAS                           = "CAS";
+    public static final String CAD                           = "CAD";
+    public static final String EXCAS                         = "EXCAS";
+    public static final String EXCAD                         = "EXCAD";
+    public static final String EXSET                         = "EXSET";
+    public static final String EXGET                         = "EXGET";
+    public static final String EXSETVER                      = "EXSETVER";
+    public static final String EXINCRBY                      = "EXINCRBY";
+    public static final String EXINCRBYFLOAT                 = "EXINCRBYFLOAT";
+
     private RedisCommand() {
     }
 
