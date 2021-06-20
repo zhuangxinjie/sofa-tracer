@@ -50,7 +50,8 @@ import java.util.concurrent.TimeUnit;
  * @Author: zhuangxinjie
  * @Date: 2021/6/18 4:03 下午
  */
-public class TracingTairJedisClusterConnection extends TairJedisClusterConnection implements TairConnection {
+public class TracingTairJedisClusterConnection extends TairJedisClusterConnection implements
+                                                                                 TairConnection {
     private final TairActionWrapperHelper    actionWrapper;
     private final TairJedisClusterConnection tairConnection;
 
@@ -62,17 +63,23 @@ public class TracingTairJedisClusterConnection extends TairJedisClusterConnectio
         this.tairConnection = tairConnection;
     }
 
-    public TracingTairJedisClusterConnection(JedisCluster cluster, ClusterCommandExecutor executor, TairActionWrapperHelper actionWrapper, TairJedisClusterConnection tairConnection) {
+    public TracingTairJedisClusterConnection(JedisCluster cluster, ClusterCommandExecutor executor,
+                                             TairActionWrapperHelper actionWrapper,
+                                             TairJedisClusterConnection tairConnection) {
         super(cluster, executor);
         this.actionWrapper = actionWrapper;
         this.tairConnection = tairConnection;
     }
 
-    public TracingTairJedisClusterConnection(JedisCluster cluster, ClusterCommandExecutor executor, ClusterTopologyProvider topologyProvider, TairActionWrapperHelper actionWrapper, TairJedisClusterConnection tairConnection) {
+    public TracingTairJedisClusterConnection(JedisCluster cluster, ClusterCommandExecutor executor,
+                                             ClusterTopologyProvider topologyProvider,
+                                             TairActionWrapperHelper actionWrapper,
+                                             TairJedisClusterConnection tairConnection) {
         super(cluster, executor, topologyProvider);
         this.actionWrapper = actionWrapper;
         this.tairConnection = tairConnection;
     }
+
     @Override
     public RedisGeoCommands geoCommands() {
         return tairConnection.geoCommands();

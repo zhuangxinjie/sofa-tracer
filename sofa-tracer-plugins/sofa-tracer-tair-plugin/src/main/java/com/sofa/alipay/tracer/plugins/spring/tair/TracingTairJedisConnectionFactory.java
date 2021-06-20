@@ -45,60 +45,84 @@ public class TracingTairJedisConnectionFactory extends TairJedisConnectionFactor
     private final TairActionWrapperHelper    actionWrapper;
     private final TairJedisConnectionFactory bean;
 
-    public TracingTairJedisConnectionFactory(TairActionWrapperHelper actionWrapper, TairJedisConnectionFactory bean) {
+    public TracingTairJedisConnectionFactory(TairActionWrapperHelper actionWrapper,
+                                             TairJedisConnectionFactory bean) {
         this.actionWrapper = actionWrapper;
         this.bean = bean;
     }
 
-    public TracingTairJedisConnectionFactory(JedisPoolConfig poolConfig, TairActionWrapperHelper actionWrapper, TairJedisConnectionFactory bean) {
+    public TracingTairJedisConnectionFactory(JedisPoolConfig poolConfig,
+                                             TairActionWrapperHelper actionWrapper,
+                                             TairJedisConnectionFactory bean) {
         super(poolConfig);
         this.actionWrapper = actionWrapper;
         this.bean = bean;
     }
 
-    public TracingTairJedisConnectionFactory(RedisSentinelConfiguration sentinelConfig, TairActionWrapperHelper actionWrapper, TairJedisConnectionFactory bean) {
+    public TracingTairJedisConnectionFactory(RedisSentinelConfiguration sentinelConfig,
+                                             TairActionWrapperHelper actionWrapper,
+                                             TairJedisConnectionFactory bean) {
         super(sentinelConfig);
         this.actionWrapper = actionWrapper;
         this.bean = bean;
     }
 
-    public TracingTairJedisConnectionFactory(RedisSentinelConfiguration sentinelConfig, JedisPoolConfig poolConfig, TairActionWrapperHelper actionWrapper, TairJedisConnectionFactory bean) {
+    public TracingTairJedisConnectionFactory(RedisSentinelConfiguration sentinelConfig,
+                                             JedisPoolConfig poolConfig,
+                                             TairActionWrapperHelper actionWrapper,
+                                             TairJedisConnectionFactory bean) {
         super(sentinelConfig, poolConfig);
         this.actionWrapper = actionWrapper;
         this.bean = bean;
     }
 
-    public TracingTairJedisConnectionFactory(RedisClusterConfiguration clusterConfig, TairActionWrapperHelper actionWrapper, TairJedisConnectionFactory bean) {
+    public TracingTairJedisConnectionFactory(RedisClusterConfiguration clusterConfig,
+                                             TairActionWrapperHelper actionWrapper,
+                                             TairJedisConnectionFactory bean) {
         super(clusterConfig);
         this.actionWrapper = actionWrapper;
         this.bean = bean;
     }
 
-    public TracingTairJedisConnectionFactory(RedisClusterConfiguration clusterConfig, JedisPoolConfig poolConfig, TairActionWrapperHelper actionWrapper, TairJedisConnectionFactory bean) {
+    public TracingTairJedisConnectionFactory(RedisClusterConfiguration clusterConfig,
+                                             JedisPoolConfig poolConfig,
+                                             TairActionWrapperHelper actionWrapper,
+                                             TairJedisConnectionFactory bean) {
         super(clusterConfig, poolConfig);
         this.actionWrapper = actionWrapper;
         this.bean = bean;
     }
 
-    public TracingTairJedisConnectionFactory(RedisStandaloneConfiguration standaloneConfig, TairActionWrapperHelper actionWrapper, TairJedisConnectionFactory bean) {
+    public TracingTairJedisConnectionFactory(RedisStandaloneConfiguration standaloneConfig,
+                                             TairActionWrapperHelper actionWrapper,
+                                             TairJedisConnectionFactory bean) {
         super(standaloneConfig);
         this.actionWrapper = actionWrapper;
         this.bean = bean;
     }
 
-    public TracingTairJedisConnectionFactory(RedisStandaloneConfiguration standaloneConfig, JedisClientConfiguration clientConfig, TairActionWrapperHelper actionWrapper, TairJedisConnectionFactory bean) {
+    public TracingTairJedisConnectionFactory(RedisStandaloneConfiguration standaloneConfig,
+                                             JedisClientConfiguration clientConfig,
+                                             TairActionWrapperHelper actionWrapper,
+                                             TairJedisConnectionFactory bean) {
         super(standaloneConfig, clientConfig);
         this.actionWrapper = actionWrapper;
         this.bean = bean;
     }
 
-    public TracingTairJedisConnectionFactory(RedisSentinelConfiguration sentinelConfig, JedisClientConfiguration clientConfig, TairActionWrapperHelper actionWrapper, TairJedisConnectionFactory bean) {
+    public TracingTairJedisConnectionFactory(RedisSentinelConfiguration sentinelConfig,
+                                             JedisClientConfiguration clientConfig,
+                                             TairActionWrapperHelper actionWrapper,
+                                             TairJedisConnectionFactory bean) {
         super(sentinelConfig, clientConfig);
         this.actionWrapper = actionWrapper;
         this.bean = bean;
     }
 
-    public TracingTairJedisConnectionFactory(RedisClusterConfiguration clusterConfig, JedisClientConfiguration clientConfig, TairActionWrapperHelper actionWrapper, TairJedisConnectionFactory bean) {
+    public TracingTairJedisConnectionFactory(RedisClusterConfiguration clusterConfig,
+                                             JedisClientConfiguration clientConfig,
+                                             TairActionWrapperHelper actionWrapper,
+                                             TairJedisConnectionFactory bean) {
         super(clusterConfig, clientConfig);
         this.actionWrapper = actionWrapper;
         this.bean = bean;

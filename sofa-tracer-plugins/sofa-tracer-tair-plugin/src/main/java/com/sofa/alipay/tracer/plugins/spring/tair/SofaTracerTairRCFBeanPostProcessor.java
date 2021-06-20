@@ -39,7 +39,8 @@ public class SofaTracerTairRCFBeanPostProcessor implements BeanPostProcessor {
     public Object postProcessAfterInitialization(Object bean, String beanName)
                                                                               throws BeansException {
         if (bean instanceof TairJedisConnectionFactory) {
-            bean = new TracingTairJedisConnectionFactory(actionWrapper, (TairJedisConnectionFactory) bean);
+            bean = new TracingTairJedisConnectionFactory(actionWrapper,
+                (TairJedisConnectionFactory) bean);
         }
         return bean;
     }
