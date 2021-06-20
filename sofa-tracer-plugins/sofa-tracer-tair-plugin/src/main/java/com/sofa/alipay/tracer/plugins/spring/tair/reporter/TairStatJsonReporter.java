@@ -16,7 +16,15 @@
  */
 package com.sofa.alipay.tracer.plugins.spring.tair.reporter;
 
-import com.sofa.alipay.tracer.plugins.spring.redis.reporter.RedisStatJsonReporter;
+import com.alipay.common.tracer.core.constants.SofaTracerConstant;
+import com.alipay.common.tracer.core.reporter.stat.AbstractSofaTracerStatisticReporter;
+import com.alipay.common.tracer.core.reporter.stat.model.StatMapKey;
+import com.alipay.common.tracer.core.span.CommonSpanTags;
+import com.alipay.common.tracer.core.span.SofaTracerSpan;
+import com.alipay.common.tracer.core.utils.TracerUtils;
+import io.opentracing.tag.Tags;
+
+import java.util.Map;
 
 /**
  * @ClassName: TairStatJsonReporter
@@ -24,8 +32,34 @@ import com.sofa.alipay.tracer.plugins.spring.redis.reporter.RedisStatJsonReporte
  * @Author: zhuangxinjie
  * @Date: 2021/6/17 6:41 下午
  */
-public class TairStatJsonReporter extends RedisStatJsonReporter {
+public class TairStatJsonReporter extends AbstractSofaTracerStatisticReporter {
+
     public TairStatJsonReporter(String statTracerName, String rollingPolicy, String logReserveConfig) {
         super(statTracerName, rollingPolicy, logReserveConfig);
+    }
+
+    @Override
+    public void doReportStat(SofaTracerSpan sofaTracerSpan) {
+        Map<String, String> tagsWithStr = sofaTracerSpan.getTagsWithStr();
+        StatMapKey statKey = new StatMapKey();
+        String localApp = tagsWithStr.get(CommonSpanTags.LOCAL_APP);
+        String dbType = tagsWithStr.get(Tags.DB_TYPE.getKey());
+
+        statKey.addKey(CommonSpanTags.LOCAL_APP, localApp);
+        statKey.addKey(Tags.DB_TYPE.getKey(), dbType);
+        //result
+        String result = SofaTracerConstant.RESULT_CODE_SUCCESS.equals(tagsWithStr
+            .get(CommonSpanTags.RESULT_CODE)) ? SofaTracerConstant.STAT_FLAG_SUCCESS
+            : SofaTracerConstant.STAT_FLAG_FAILS;
+        statKey.setResult(result);
+        //pressure mark
+        statKey.setLoadTest(TracerUtils.isLoadTest(sofaTracerSpan));
+        //end
+        statKey.setEnd(TracerUtils.getLoadTestMark(sofaTracerSpan));
+        //value the count and duration
+        long duration = sofaTracerSpan.getEndTime() - sofaTracerSpan.getStartTime();
+        long[] values = new long[] { 1, duration };
+        //reserve
+        this.addStat(statKey, values);
     }
 }

@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sofa.alipay.tracer.plugins.spring.redis.common;
+package com.sofa.alipay.tracer.plugins.spring.tair.common;
 
 /**
  * @author: guolei.sgl (guolei.sgl@antfin.com) 2019/11/18 8:54 PM
  * @since:
  **/
-public final class RedisCommand {
+public final class TairAndRedisCommand {
 
     public static final String APPEND                        = "APPEND";
     public static final String AUTH                          = "AUTH";
@@ -257,7 +257,18 @@ public final class RedisCommand {
     public static final String REFCOUNT                      = "REFCOUNT";
     public static final String EXECUTE                       = "EXECUTE";
 
-    private RedisCommand() {
+    //TODO  添加 tair 相关命令
+    public static final String CAS                           = "CAS";
+    public static final String CAD                           = "CAD";
+    public static final String EXCAS                         = "EXCAS";
+    public static final String EXCAD                         = "EXCAD";
+    public static final String EXSET                         = "EXSET";
+    public static final String EXGET                         = "EXGET";
+    public static final String EXSETVER                      = "EXSETVER";
+    public static final String EXINCRBY                      = "EXINCRBY";
+    public static final String EXINCRBYFLOAT                 = "EXINCRBYFLOAT";
+
+    private TairAndRedisCommand() {
     }
 
 }

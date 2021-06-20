@@ -14,21 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sofa.alipay.tracer.plugins.spring.tair;
-
-import com.sofa.alipay.tracer.plugins.spring.redis.TracingRedisConnectionFactory;
-import com.sofa.alipay.tracer.plugins.spring.redis.common.RedisActionWrapperHelper;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
+package com.sofa.alipay.tracer.plugins.spring.tair.common;
 
 /**
- * @ClassName: TracingTailConnectionFactory
+ * @ClassName: ThrowingAction
  * @Description:
  * @Author: zhuangxinjie
- * @Date: 2021/6/16 1:57 下午
+ * @Date: 2021/6/18 5:21 下午
  */
-public class TracingTairConnectionFactory extends TracingRedisConnectionFactory {
-    public TracingTairConnectionFactory(RedisConnectionFactory delegate,
-                                        RedisActionWrapperHelper actionWrapper) {
-        super(delegate, actionWrapper);
-    }
+@FunctionalInterface
+public interface ThrowingAction<T extends Exception> {
+
+    void execute() throws T;
 }

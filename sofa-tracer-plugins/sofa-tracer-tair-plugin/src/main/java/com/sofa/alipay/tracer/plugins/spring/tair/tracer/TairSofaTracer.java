@@ -21,8 +21,9 @@ import com.alipay.common.tracer.core.configuration.SofaTracerConfiguration;
 import com.alipay.common.tracer.core.constants.ComponentNameConstants;
 import com.alipay.common.tracer.core.reporter.stat.AbstractSofaTracerStatisticReporter;
 import com.alipay.common.tracer.core.span.SofaTracerSpan;
-import com.sofa.alipay.tracer.plugins.spring.redis.tracer.RedisSofaTracer;
+import com.alipay.common.tracer.core.tracer.AbstractClientTracer;
 import com.sofa.alipay.tracer.plugins.spring.tair.encoder.TairDigestEncoder;
+import com.sofa.alipay.tracer.plugins.spring.tair.encoder.TairDigestJsonEncoder;
 import com.sofa.alipay.tracer.plugins.spring.tair.enums.TairLogEnum;
 import com.sofa.alipay.tracer.plugins.spring.tair.reporter.TairStatJsonReporter;
 import com.sofa.alipay.tracer.plugins.spring.tair.reporter.TairStatReporter;
@@ -33,7 +34,7 @@ import com.sofa.alipay.tracer.plugins.spring.tair.reporter.TairStatReporter;
  * @Author: zhuangxinjie
  * @Date: 2021/6/11 2:28 下午
  */
-public class TairSofaTracer extends RedisSofaTracer {
+public class TairSofaTracer extends AbstractClientTracer {
     private volatile static TairSofaTracer tairSofaTracer = null;
 
     public static TairSofaTracer getTairSofaTracerSingleton() {
@@ -71,7 +72,7 @@ public class TairSofaTracer extends RedisSofaTracer {
     protected SpanEncoder<SofaTracerSpan> getClientDigestEncoder() {
         //default json output
         if (SofaTracerConfiguration.isJsonOutput()) {
-            return new TairDigestEncoder();
+            return new TairDigestJsonEncoder();
         } else {
             return new TairDigestEncoder();
         }

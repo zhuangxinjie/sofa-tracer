@@ -14,19 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sofa.alipay.tracer.plugins.spring.tair.connections;
-
-import com.aliyun.tair.springdata.extend.tairstring.TairStringOperations;
-import org.springframework.data.redis.connection.RedisConnection;
+package com.sofa.alipay.tracer.plugins.spring.tair.common;
 
 /**
- * @ClassName: TairRedisConnection
+ * @ClassName: ThrowingSupplier
  * @Description:
  * @Author: zhuangxinjie
- * @Date: 2021/6/17 1:56 下午
+ * @Date: 2021/6/18 5:24 下午
  */
-public interface TairRedisConnection extends RedisConnection, TairStringOperations {
-    default TairStringOperations tairCommands() {
-        return this;
-    }
+@FunctionalInterface
+public interface ThrowingSupplier<T extends Exception, V> {
+
+    V get() throws T;
 }
