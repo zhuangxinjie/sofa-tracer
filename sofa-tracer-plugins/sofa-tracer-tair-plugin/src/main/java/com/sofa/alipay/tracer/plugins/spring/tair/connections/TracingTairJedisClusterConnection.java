@@ -16,7 +16,6 @@
  */
 package com.sofa.alipay.tracer.plugins.spring.tair.connections;
 
-import com.aliyun.tair.springdata.extend.commands.TairConnection;
 import com.aliyun.tair.springdata.extend.connection.TairJedisClusterConnection;
 import com.aliyun.tair.springdata.extend.tairstring.TairStringCommands;
 import com.aliyun.tair.tairstring.params.CasParams;
@@ -30,7 +29,6 @@ import com.sofa.alipay.tracer.plugins.spring.tair.common.TairAndRedisCommand;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.geo.*;
 import org.springframework.data.redis.connection.*;
-import org.springframework.data.redis.connection.stream.*;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.types.Expiration;
@@ -50,8 +48,7 @@ import java.util.concurrent.TimeUnit;
  * @Author: zhuangxinjie
  * @Date: 2021/6/18 4:03 下午
  */
-public class TracingTairJedisClusterConnection extends TairJedisClusterConnection implements
-                                                                                 TairConnection {
+public class TracingTairJedisClusterConnection extends TairJedisClusterConnection {
     private final TairActionWrapperHelper    actionWrapper;
     private final TairJedisClusterConnection tairConnection;
 
@@ -218,7 +215,7 @@ public class TracingTairJedisClusterConnection extends TairJedisClusterConnectio
 
     @Override
     public Distance geoDist(byte[] bytes, byte[] bytes1, byte[] bytes2, Metric metric) {
-        return actionWrapper.doInScope(TairAndRedisCommand.GEODIST, bytes,() -> tairConnection.geoDist(bytes, bytes1, bytes2, metric));
+        return actionWrapper.doInScope(TairAndRedisCommand.GEODIST, bytes, () -> tairConnection.geoDist(bytes, bytes1, bytes2, metric));
     }
 
     @Override
@@ -259,7 +256,7 @@ public class TracingTairJedisClusterConnection extends TairJedisClusterConnectio
                                                              byte[] bytes1,
                                                              Distance distance,
                                                              GeoRadiusCommandArgs geoRadiusCommandArgs) {
-        return actionWrapper.doInScope(TairAndRedisCommand.GEORADIUSBYMEMBER, bytes, () -> tairConnection.geoRadiusByMember(bytes, bytes1, distance,geoRadiusCommandArgs));
+        return actionWrapper.doInScope(TairAndRedisCommand.GEORADIUSBYMEMBER, bytes, () -> tairConnection.geoRadiusByMember(bytes, bytes1, distance, geoRadiusCommandArgs));
     }
 
     @Override
@@ -1340,7 +1337,7 @@ public class TracingTairJedisClusterConnection extends TairJedisClusterConnectio
 
     @Override
     public Long exincrBy(byte[] key, long incr, ExincrbyParams params) {
-        return actionWrapper.doInScope(TairAndRedisCommand.EXINCRBY, key, () -> tairConnection.exincrBy(key, incr,params));
+        return actionWrapper.doInScope(TairAndRedisCommand.EXINCRBY, key, () -> tairConnection.exincrBy(key, incr, params));
     }
 
     @Override
@@ -1350,7 +1347,7 @@ public class TracingTairJedisClusterConnection extends TairJedisClusterConnectio
 
     @Override
     public Double exincrByFloat(byte[] key, Double incr, ExincrbyFloatParams params) {
-        return actionWrapper.doInScope(TairAndRedisCommand.EXINCRBYFLOAT, key, () -> tairConnection.exincrByFloat(key, incr,params));
+        return actionWrapper.doInScope(TairAndRedisCommand.EXINCRBYFLOAT, key, () -> tairConnection.exincrByFloat(key, incr, params));
     }
 
     @Override
@@ -1361,70 +1358,5 @@ public class TracingTairJedisClusterConnection extends TairJedisClusterConnectio
     @Override
     public Long excad(byte[] key, long version) {
         return actionWrapper.doInScope(TairAndRedisCommand.EXCAD, key, () -> tairConnection.excad(key, version));
-    }
-
-    @Override
-    public Long xAck(byte[] bytes, String s, RecordId... recordIds) {
-        return null;
-    }
-
-    @Override
-    public RecordId xAdd(MapRecord<byte[], byte[], byte[]> mapRecord) {
-        return null;
-    }
-
-    @Override
-    public Long xDel(byte[] bytes, RecordId... recordIds) {
-        return null;
-    }
-
-    @Override
-    public String xGroupCreate(byte[] bytes, String s, ReadOffset readOffset) {
-        return null;
-    }
-
-    @Override
-    public Boolean xGroupDelConsumer(byte[] bytes, Consumer consumer) {
-        return null;
-    }
-
-    @Override
-    public Boolean xGroupDestroy(byte[] bytes, String s) {
-        return null;
-    }
-
-    @Override
-    public Long xLen(byte[] bytes) {
-        return null;
-    }
-
-    @Override
-    public List<ByteRecord> xRange(byte[] bytes,
-                                   org.springframework.data.domain.Range<String> range, Limit limit) {
-        return null;
-    }
-
-    @Override
-    public List<ByteRecord> xRead(StreamReadOptions streamReadOptions,
-                                  StreamOffset<byte[]>... streamOffsets) {
-        return null;
-    }
-
-    @Override
-    public List<ByteRecord> xReadGroup(Consumer consumer, StreamReadOptions streamReadOptions,
-                                       StreamOffset<byte[]>... streamOffsets) {
-        return null;
-    }
-
-    @Override
-    public List<ByteRecord> xRevRange(byte[] bytes,
-                                      org.springframework.data.domain.Range<String> range,
-                                      Limit limit) {
-        return null;
-    }
-
-    @Override
-    public Long xTrim(byte[] bytes, long l) {
-        return null;
     }
 }

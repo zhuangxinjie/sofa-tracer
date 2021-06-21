@@ -99,6 +99,53 @@ public class TairActionWrapperHelper {
         }
     }
 
+    public <T> T decorate(Supplier<T> supplier, String operateName) {
+        Span span = buildSpan(operateName);
+        try {
+            return supplier.get();
+        } catch (Throwable t) {
+            throw t;
+        } finally {
+            span.finish();
+        }
+    }
+
+    public void decorate(Action action, String operateName) {
+        Span span = buildSpan(operateName);
+        try {
+            action.execute();
+        } catch (Throwable t) {
+            throw t;
+        } finally {
+            span.finish();
+        }
+    }
+
+    public <T extends Exception> void decorateThrowing(ThrowingAction<T> action, String operateName)
+                                                                                                    throws T {
+        Span span = buildSpan(operateName);
+        try {
+            action.execute();
+        } catch (Throwable t) {
+            throw t;
+        } finally {
+            span.finish();
+        }
+    }
+
+    public <T extends Exception, V> V decorateThrowing(ThrowingSupplier<T, V> supplier,
+                                                       String operateName) throws T {
+
+        Span span = buildSpan(operateName);
+        try {
+            return supplier.get();
+        } catch (Throwable t) {
+            throw t;
+        } finally {
+            span.finish();
+        }
+    }
+
     private Tracer.SpanBuilder builder(String operationName) {
         SofaTracerSpan currentSpan = SofaTraceContextHolder.getSofaTraceContext().getCurrentSpan();
         if (this.appName == null) {
