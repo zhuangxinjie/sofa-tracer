@@ -32,7 +32,6 @@ import org.springframework.data.geo.*;
 import org.springframework.data.redis.connection.*;
 import org.springframework.data.redis.connection.stream.*;
 import org.springframework.data.redis.core.Cursor;
-import org.springframework.data.redis.core.RedisCommand;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.data.redis.core.types.RedisClientInfo;

@@ -55,7 +55,7 @@ public class OpenTracingSpringMvcAutoConfiguration {
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
     public class SpringMvcDelegatingFilterProxyConfiguration {
         @Bean
-        public FilterRegistrationBean springMvcDelegatingFilterProxy() {
+        public FilterRegistrationBean springMvcDelegatingFilterProxy1() {
             FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
             SpringMvcSofaTracerFilter filter = new SpringMvcSofaTracerFilter();
             filterRegistrationBean.setFilter(filter);

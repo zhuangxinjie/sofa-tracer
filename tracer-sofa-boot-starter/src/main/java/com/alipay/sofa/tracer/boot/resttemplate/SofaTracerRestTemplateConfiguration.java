@@ -32,12 +32,12 @@ import org.springframework.context.annotation.Configuration;
 public class SofaTracerRestTemplateConfiguration {
 
     @Bean
-    public SofaTracerRestTemplateBeanPostProcessor sofaTracerRestTemplateBeanPostProcessor() {
-        return new SofaTracerRestTemplateBeanPostProcessor(sofaTracerRestTemplateEnhance());
+    public SofaTracerRestTemplateBeanPostProcessor sofaTracerRestTemplateBean1PostProcessor() {
+        return new SofaTracerRestTemplateBeanPostProcessor(sofaTracer1RestTemplateEnhance());
     }
 
     @Bean
-    public SofaTracerRestTemplateEnhance sofaTracerRestTemplateEnhance() {
+    public SofaTracerRestTemplateEnhance sofaTracer1RestTemplateEnhance() {
         return new SofaTracerRestTemplateEnhance();
     }
 }

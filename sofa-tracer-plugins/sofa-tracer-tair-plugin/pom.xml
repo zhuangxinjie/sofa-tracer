@@ -18,17 +18,10 @@
             <artifactId>tair-mc-plugin</artifactId>
             <version>6.0.3-SNAPSHOT</version>
         </dependency>
-
         <dependency>
             <groupId>com.aliyun.tair</groupId>
             <artifactId>alibabacloud-tairjedis-sdk</artifactId>
             <version>1.4.0</version>
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>jedis</artifactId>-->
-<!--                    <groupId>redis.clients</groupId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
         </dependency>
 
         <dependency>
@@ -47,12 +40,6 @@
             <groupId>com.alipay.sofa</groupId>
             <artifactId>tracer-core</artifactId>
             <version>3.1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>

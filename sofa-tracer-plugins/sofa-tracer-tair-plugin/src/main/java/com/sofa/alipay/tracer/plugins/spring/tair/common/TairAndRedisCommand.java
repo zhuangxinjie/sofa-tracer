@@ -16,6 +16,8 @@
  */
 package com.sofa.alipay.tracer.plugins.spring.tair.common;
 
+import sun.font.CreatedFontTracker;
+
 /**
  * @author: guolei.sgl (guolei.sgl@antfin.com) 2019/11/18 8:54 PM
  * @since:

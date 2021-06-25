@@ -24,6 +24,7 @@ import com.sofa.alipay.tracer.plugins.spring.tair.connections.TracingRedisSentin
 import com.sofa.alipay.tracer.plugins.spring.tair.connections.TracingTairConnection;
 import com.sofa.alipay.tracer.plugins.spring.tair.connections.TracingTairJedisClusterConnection;
 import org.springframework.data.redis.connection.*;
+import org.springframework.data.redis.connection.jedis.JedisClusterConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import redis.clients.jedis.JedisCluster;
 
@@ -37,24 +38,23 @@ import java.lang.reflect.Field;
  */
 public class TracingTairJedisConnectionFactory extends TairJedisConnectionFactory {
     private final TairActionWrapperHelper    actionWrapper;
-    private final TairJedisConnectionFactory bean;
+    private final TairJedisConnectionFactory delegate;
 
     public TracingTairJedisConnectionFactory(TairActionWrapperHelper actionWrapper,
-                                             TairJedisConnectionFactory bean) {
+                                             TairJedisConnectionFactory delegate) {
         this.actionWrapper = actionWrapper;
-        this.bean = bean;
+        this.delegate = delegate;
     }
 
-    // todo 工厂的具体实现
-    //    @Override
-    //    public RedisConnection getConnection() {
-    //        // support cluster connection
-    //        RedisConnection connection = this.bean.getConnection();
-    //        if (connection instanceof RedisClusterConnection) {
-    //            return this.getClusterConnection();
-    //        }
-    //        return new TracingTairConnection(connection, actionWrapper);
-    //    }
+    @Override
+    public RedisConnection getConnection() {
+
+        RedisConnection connection = this.delegate.getConnection();
+        if (connection instanceof RedisClusterConnection) {
+            return this.getClusterConnection();
+        }
+        return new TracingTairConnection(actionWrapper, (TairConnection) connection);
+    }
 
     @Override
     public RedisClusterConnection getClusterConnection() {
@@ -62,37 +62,40 @@ public class TracingTairJedisConnectionFactory extends TairJedisConnectionFactor
         ClusterCommandExecutor clusterCommandExecutor = this.getClusterCommandExecutorwithReflect();
         ClusterTopologyProvider clusterTopologyProvider = this
             .getClusterTopologyProviderwithReflect();
-        if (jedisCluster != null && clusterCommandExecutor == null
-            && clusterTopologyProvider == null) {
+        if (null != jedisCluster &&  null == clusterCommandExecutor
+                &&  null == clusterTopologyProvider) {
             return new TracingTairJedisClusterConnection(jedisCluster, actionWrapper,
-                (TairJedisClusterConnection) bean.getClusterConnection());
-        } else if (jedisCluster != null && clusterCommandExecutor != null
-                   && clusterTopologyProvider == null) {
+                (TairJedisClusterConnection) delegate.getClusterConnection());
+        } else if (null != jedisCluster &&  null != clusterCommandExecutor
+                &&  null == clusterTopologyProvider) {
             return new TracingTairJedisClusterConnection(jedisCluster, clusterCommandExecutor,
-                actionWrapper, (TairJedisClusterConnection) bean.getClusterConnection());
-        } else {
+                actionWrapper, (TairJedisClusterConnection) delegate.getClusterConnection());
+        } else if ( null != jedisCluster &&  null != clusterCommandExecutor
+                   &&  null != clusterTopologyProvider) {
             return new TracingTairJedisClusterConnection(jedisCluster, clusterCommandExecutor,
                 clusterTopologyProvider, actionWrapper,
-                (TairJedisClusterConnection) bean.getClusterConnection());
+                (TairJedisClusterConnection) delegate.getClusterConnection());
+        } else {
+            return null;
         }
 
     }
 
     @Override
     public boolean getConvertPipelineAndTxResults() {
-        return bean.getConvertPipelineAndTxResults();
+        return delegate.getConvertPipelineAndTxResults();
     }
 
     @Override
     public RedisSentinelConnection getSentinelConnection() {
-        return new TracingRedisSentinelConnection(bean.getSentinelConnection(), actionWrapper);
+        return new TracingRedisSentinelConnection(delegate.getSentinelConnection(), actionWrapper);
     }
 
     private JedisCluster getJedisClusterwithReflect() {
         try {
             Field privateStringField = JedisConnectionFactory.class.getDeclaredField("cluster");
             privateStringField.setAccessible(true);
-            return (JedisCluster) privateStringField.get(this);
+            return (JedisCluster) privateStringField.get(delegate);
         } catch (Exception var2) {
             throw new RuntimeException(var2);
         }
@@ -103,7 +106,7 @@ public class TracingTairJedisConnectionFactory extends TairJedisConnectionFactor
             Field privateStringField = JedisConnectionFactory.class
                 .getDeclaredField("clusterCommandExecutor");
             privateStringField.setAccessible(true);
-            return (ClusterCommandExecutor) privateStringField.get(this);
+            return (ClusterCommandExecutor) privateStringField.get(delegate);
         } catch (Exception var2) {
             throw new RuntimeException(var2);
         }
@@ -114,10 +117,9 @@ public class TracingTairJedisConnectionFactory extends TairJedisConnectionFactor
             Field privateStringField = JedisConnectionFactory.class
                 .getDeclaredField("topologyProvider");
             privateStringField.setAccessible(true);
-            return (ClusterTopologyProvider) privateStringField.get(this);
+            return (ClusterTopologyProvider) privateStringField.get(delegate);
         } catch (Exception var2) {
             throw new RuntimeException(var2);
         }
     }
-
 }

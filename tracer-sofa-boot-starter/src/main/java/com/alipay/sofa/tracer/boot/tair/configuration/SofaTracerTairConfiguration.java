@@ -17,6 +17,7 @@
 package com.alipay.sofa.tracer.boot.tair.configuration;
 
 import com.alipay.sofa.tracer.boot.configuration.SofaTracerAutoConfiguration;
+
 import com.aliyun.tair.springdata.TairJedisConnectionFactory;
 import com.sofa.alipay.tracer.plugins.spring.tair.SofaTracerTairRCFBeanPostProcessor;
 import com.sofa.alipay.tracer.plugins.spring.tair.common.TairActionWrapperHelper;
@@ -44,9 +45,9 @@ public class SofaTracerTairConfiguration {
         return new TairActionWrapperHelper();
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    SofaTracerTairRCFBeanPostProcessor sofaTracerTairRCFBeanPostProcessor(TairActionWrapperHelper tairActionWrapperHelper) {
-        return new SofaTracerTairRCFBeanPostProcessor(tairActionWrapperHelper);
-    }
+    //    @Bean
+    //    @ConditionalOnMissingBean
+    //    SofaTracerTairRCFBeanPostProcessor sofaTracerTairRCFBeanPostProcessor(TairActionWrapperHelper tairActionWrapperHelper) {
+    //        return new SofaTracerTairRCFBeanPostProcessor(tairActionWrapperHelper);
+    //    }
 }
