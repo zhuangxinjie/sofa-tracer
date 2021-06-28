@@ -62,16 +62,16 @@ public class TracingTairJedisConnectionFactory extends TairJedisConnectionFactor
         ClusterCommandExecutor clusterCommandExecutor = this.getClusterCommandExecutorwithReflect();
         ClusterTopologyProvider clusterTopologyProvider = this
             .getClusterTopologyProviderwithReflect();
-        if (null != jedisCluster &&  null == clusterCommandExecutor
-                &&  null == clusterTopologyProvider) {
+        if (null != jedisCluster && null == clusterCommandExecutor
+            && null == clusterTopologyProvider) {
             return new TracingTairJedisClusterConnection(jedisCluster, actionWrapper,
                 (TairJedisClusterConnection) delegate.getClusterConnection());
-        } else if (null != jedisCluster &&  null != clusterCommandExecutor
-                &&  null == clusterTopologyProvider) {
+        } else if (null != jedisCluster && null != clusterCommandExecutor
+                   && null == clusterTopologyProvider) {
             return new TracingTairJedisClusterConnection(jedisCluster, clusterCommandExecutor,
                 actionWrapper, (TairJedisClusterConnection) delegate.getClusterConnection());
-        } else if ( null != jedisCluster &&  null != clusterCommandExecutor
-                   &&  null != clusterTopologyProvider) {
+        } else if (null != jedisCluster && null != clusterCommandExecutor
+                   && null != clusterTopologyProvider) {
             return new TracingTairJedisClusterConnection(jedisCluster, clusterCommandExecutor,
                 clusterTopologyProvider, actionWrapper,
                 (TairJedisClusterConnection) delegate.getClusterConnection());

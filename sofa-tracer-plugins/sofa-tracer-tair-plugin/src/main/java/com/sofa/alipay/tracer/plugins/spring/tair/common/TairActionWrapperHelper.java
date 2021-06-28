@@ -60,10 +60,6 @@ public class TairActionWrapperHelper {
         return sofaTracer;
     }
 
-    //    private static String deserialize(Object o) {
-    //        return (o == null ? "" : o.toString());
-    //    }
-
     private <T> T activateAndCloseSpan(Span span, Supplier<T> supplier) {
         Throwable candidateThrowable = null;
         try {
@@ -222,39 +218,5 @@ public class TairActionWrapperHelper {
         }
         return keys;
     }
-    //    public void doInScope(String command, Runnable runnable) {
-    //        Span span = buildSpan(command);
-    //        activateAndCloseSpan(span, runnable);
-    //    }
-    //    public <T> T doInScope(String command, Object key, Object oldValue, Object newValue,
-    //                           Supplier<T> supplier) {
-    //        Span span = buildSpan(command, deserialize(key), oldValue, newValue);
-    //        return activateAndCloseSpan(span, supplier);
-    //    }
-    //
-    //    public Span buildSpan(String operationName, Object key, Object oldValue, Object newValue) {
-    //        return buildSpan(operationName).setTag("key", nullable(key))
-    //            .setTag("oldValue", nullable(oldValue)).setTag("newValue", nullable(newValue));
-    //    }
-    //    public Span buildSpan(String operationName, Object key, Object value) {
-    //        return buildSpan(operationName).setTag("key", nullable(key))
-    //                .setTag("oldValue", nullable(value));
-    //    }
-    //
-    //    public <T> T  doInScope(String command, Object key, Object oldValue, Object newValue, CasParams casParams, Supplier<T> supplier) {
-    //        Span span = buildSpan(command, deserialize(key), oldValue, newValue);
-    //        return activateAndCloseSpan(span, supplier);
-    //    }
-    //
-    //    public <T> T doInScope(String command, Object key, Object value,
-    //                           Supplier<T> supplier) {
-    //        Span span = buildSpan(command, deserialize(key), value);
-    //        return activateAndCloseSpan(span, supplier);
-    //    }
-    //
-    //    public <T> T doInScope(String command, Object key, Supplier<T> supplier) {
-    //        Span span = buildSpan(command, deserialize(key));
-    //        return activateAndCloseSpan(span, supplier);
-    //    }
 
 }

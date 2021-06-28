@@ -16,8 +16,6 @@
  */
 package com.sofa.alipay.tracer.plugins.spring.tair.common;
 
-import sun.font.CreatedFontTracker;
-
 /**
  * @author: guolei.sgl (guolei.sgl@antfin.com) 2019/11/18 8:54 PM
  * @since:
@@ -247,12 +245,18 @@ public final class TairAndRedisCommand {
     public static final String SSCAN                         = "SSCAN";
     public static final String HSCAN                         = "HSCAN";
     public static final String ZSCAN                         = "ZSCAN";
+    public static final String XACK                          = "XACK";
     public static final String XADD                          = "XADD";
+    public static final String XDEL                          = "XDEL";
     public static final String XRANGE                        = "XRANGE";
-    public static final String XREVRANGE                     = "XREVRANGE";
+    public static final String XGROUPDESTORY                 = "XGROUPDESTORY";
+    public static final String XGROUPCREATE                  = "XGROUPCREATE";
+    public static final String XGROUPDELCONSUMER             = "XGROUPDELCONSUMER";
     public static final String XLEN                          = "XLEN";
     public static final String XREAD                         = "XREAD";
     public static final String XREADGROUP                    = "XREADGROUP";
+    public static final String XREVRANGE                     = "XREVRANGE";
+    public static final String XTRIM                         = "XTRIM";
     public static final String XPENDING                      = "XPENDING";
     public static final String ENCODING                      = "ENCODING";
     public static final String IDLETIME                      = "IDLETIME";
